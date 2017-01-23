@@ -5,7 +5,7 @@ services:
     apps:
         image: tianon/true
         volumes:
-            - ../:/var/www
+            - ../:/var/www:rw
 
     nginx:
         build:
@@ -18,9 +18,8 @@ services:
             - ./nginx/sites/:/etc/nginx/sites-available
             - ./logs/nginx/:/var/log/nginx
         ports:
-            - "8000:80"
+            - "80:80"
             - "443:443"
-        mem_limit: 100M
         links:
             - php-fpm
 
@@ -31,20 +30,19 @@ services:
             - apps
         expose:
             - "9000"
-        mem_limit: 200M
         links:
             - mysql
 
     mysql:
         build:
             context: ./mysql
+        mem_limit: 256M
         volumes:
             - ./db/:/db
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: homestead
-            MYSQL_USER: homestead
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: root
-        mem_limit: 200M
+            MYSQL_DATABASE: wirodb
+            MYSQL_USER: wiro
+            MYSQL_PASSWORD: toolsblog212!
+            MYSQL_ROOT_PASSWORD: BAKAore212!
